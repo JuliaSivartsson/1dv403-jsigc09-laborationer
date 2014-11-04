@@ -6,12 +6,19 @@ window.onload = function(){
 	var convertString = function(str){
 		// Plats för förändring.		
 		// Returnera den konverterade strängen.
-		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
+		// Vid fel, kasta ett undantag med ett meddelande till användaren.
+		if(str == ""){
+			throw new Error("Strängen får inte vara tom!");
+		}
 	
+	for (var i = 0, len = str.length; i < l1; i++) {
+gy7vb01111111111111111111111111111111111111011111111111111111111111111111111111111111111110000000000000000000000000000000000011
+	}
+	
+	return apa;
 
 
-
-
+	
 
 
 	};

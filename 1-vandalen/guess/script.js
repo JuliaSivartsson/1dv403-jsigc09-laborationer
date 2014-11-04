@@ -3,13 +3,13 @@
 window.onload = function(){
 	
 	var secret = Math.floor(Math.random() * 100) + 1; // Detta tal behöver bytas ut mot ett slumpat tal.
-	
+		var numberOfGuesses = 0;
+		
 	// I denna funktion ska du skriva koden för att hantera "spelet"
 	var guess = function(number){
-		var numberOfGuesses = 0;
 		console.log("Det hemliga talet: " + secret); // Du når den yttre variabeln secret innifrån funktionen.
 		console.log("Du gissade: " + number); // Detta nummer är det som användaren gissade på.
-	
+
 		// Plats för förändring.
 		
 		if(number < secret && number > 0){
