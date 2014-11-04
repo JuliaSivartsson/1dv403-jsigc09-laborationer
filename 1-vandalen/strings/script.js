@@ -11,16 +11,30 @@ window.onload = function(){
 			throw new Error("Strängen får inte vara tom!");
 		}
 	
-	for (var i = 0, len = str.length; i < l1; i++) {
-gy7vb01111111111111111111111111111111111111011111111111111111111111111111111111111111111110000000000000000000000000000000000011
+	var tempString = str;
+	var newString = "";8
+	
+	//for each character in str
+	for(var i = 0; i < tempString.length; i++){
+		
+		//if it is a lowercase
+		if(tempString.charAt(i) === tempString.charAt(i).toLowerCase()){
+			newString = newString + tempString.charAt(i).toUpperCase();
+		}
+		//if it is a uppercase
+		else if(tempString.charAt(i) === tempString.charAt(i).toUpperCase()){
+			newString = newString + tempString.charAt(i).toLowerCase();
+		}
+		//if it is an a or A
+		if(tempString.charAt(i) == "a" || tempString.charAt(i) == "A"){
+			var re = /a/gi;
+			var newstr = newString.replace(re, "#");
+			newString = newstr;
+		}
 	}
 	
-	return apa;
-
-
+	return newString;
 	
-
-
 	};
 	// ------------------------------------------------------------------------------
 
