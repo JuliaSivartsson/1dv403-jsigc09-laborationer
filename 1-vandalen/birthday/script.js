@@ -8,10 +8,43 @@ window.onload = function(){
 
 
 			// Din kod här.
+			
+			if(date === ""){
+			 	throw new Error("Fel format!");
+			}
 
-
-
-
+	    //Todays date and users date
+		   var today = new Date();
+	    var nextBirthday = new Date(date);
+	 
+	    // This year
+	 			nextBirthday.setFullYear(today.getFullYear());
+	 
+	 		 // To avoid minus days
+	 	 	if(nextBirthday.getTime() - today.getTime() < 0){
+	 	 				nextBirthday.setFullYear(today.getFullYear() + 1);
+	 	 	}
+					
+					// Return days to next birthday
+					function numberOfDays(){
+									var milliseconds;
+									milliseconds = nextBirthday.getTime() - today.getTime();
+									var minutes = 1000 * 60;
+									var hours = minutes * 60;
+									var days = hours * 24;
+									var daysToReturn = milliseconds / days;
+									daysToReturn = Math.ceil(daysToReturn);
+									
+									if(daysToReturn == 365){
+										daysToReturn = 0;
+									}
+									
+									return daysToReturn;
+					}
+					
+	    return numberOfDays();
+	    
+		
 	};
 	// ------------------------------------------------------------------------------
 
