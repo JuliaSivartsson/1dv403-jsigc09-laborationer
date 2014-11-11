@@ -14,15 +14,18 @@ window.onload = function(){
 			}
 
 	    //Todays date and users date
-		   var today = new Date();
+		var today = new Date();
+		console.log("Today's date: " + today);
+	    
 	    var nextBirthday = new Date(date);
-	 
+	 	console.log("Input date: " + nextBirthday);
 	    // This year
 	 			nextBirthday.setFullYear(today.getFullYear());
 	 
 	 		 // To avoid minus days
 	 	 	if(nextBirthday.getTime() - today.getTime() < 0){
 	 	 				nextBirthday.setFullYear(today.getFullYear() + 1);
+	 	 				console.log("Year: " + nextBirthday.getFullYear());
 	 	 	}
 					
 					// Return days to next birthday
@@ -39,9 +42,10 @@ window.onload = function(){
 										daysToReturn = 0;
 									}
 									
+									console.log("Days until next birthday: " + daysToReturn);
 									return daysToReturn;
 					}
-					
+		
 	    return numberOfDays();
 	    
 		
