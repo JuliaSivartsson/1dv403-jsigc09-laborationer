@@ -12,7 +12,7 @@ window.onload = function(){
 		}
 	
 	var tempString = str;
-	var newString = "";8
+	var newString = "";
 	
 	//for each character in str
 	for(var i = 0; i < tempString.length; i++){

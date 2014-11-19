@@ -5,7 +5,24 @@ var makePerson = function(persArr){
     // New array
     var result = {};
 
-   
+try
+{
+    if(typeof persArr.age != 'number' || (persArr.age % 1) !== 0)
+    {
+        throw new TypeError("Age is not valid!");
+    }
+ 
+ 
+    if(typeof persArr.name != 'string')
+    {
+        throw new TypeError("Name is not valid!");
+    }
+}
+catch(TypeError)
+{
+    console.log(TypeError.message);
+}
+
     //Property minAge
     persArr.sort(function(a, b){
         return a.age-b.age;
@@ -30,6 +47,6 @@ var makePerson = function(persArr){
     });
     result.names = arrayForNames.join(", ");
     result.averageAge = Math.round(sum/persArr.length);
-    
+
     return result;
 };
