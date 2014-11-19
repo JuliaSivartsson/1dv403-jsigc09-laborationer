@@ -1,3 +1,5 @@
+"use strict";
+
 function Message(message, date){
     
     this.getText = function(){
@@ -23,7 +25,7 @@ Message.prototype.toString = function(){
 }
 
 Message.prototype.getHTMLText = function(){
-    
+    return this.getText().replace(/[\n]/g, "<br />");
 }
 
 Message.prototype.getDateText = function(){

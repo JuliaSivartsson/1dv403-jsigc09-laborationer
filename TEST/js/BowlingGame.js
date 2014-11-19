@@ -1,3 +1,4 @@
+
 function BowlingGame(players){
     //konstruktor
     this.players = players;

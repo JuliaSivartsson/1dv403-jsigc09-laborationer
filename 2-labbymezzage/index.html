@@ -4,22 +4,19 @@
 	<meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
  	<title>Labby message</title>
- 	<style>
- 		.error {
- 			background-color: #F7A1A1;
- 		}
- 	</style>
 </head>
     <body>
         <div id="content">
             <h1>Labby mezzage</h1>
 
             <div id="text">
-                <p class="right">Antal meddelanden:</p>
-                <textarea></textarea>
-                <input class="right" class="button" type="submit" value="Submit">
+                <div id="count" class="right">Antal meddelanden: 0</div>
+                <form action="post" name="form">
+                    <textarea id="messagearea" name"messagearea" placeholder="write your message here"></textarea>
+                    <input id="sendmessage" class="right" class="button" type="button" value="Submit">
+                </form>
             </div>
-            <div id="messages">
+            <div id="viewmessages">
             
             
             </div>
