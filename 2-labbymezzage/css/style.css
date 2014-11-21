@@ -33,6 +33,11 @@ h1{
     padding-top: 10px;
 }
 
+#viewmessages{
+    background-color: #D6DEC0;
+    padding-left: 10px;
+}
+
 textarea{
     margin: 0 5px 5px;
     width: 500px;
@@ -40,6 +45,8 @@ textarea{
 }
 
 footer{
+    position: relative;
+    top: -330px;
     width: 500px;
     height: 30px;
     margin: 0 auto;
@@ -54,4 +61,12 @@ footer p{
 .right{
     float: right;
     margin-right: 10px;
+}
+
+.button{
+    float: right;
+}
+
+span{
+    font-size: 10px;
 }

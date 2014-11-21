@@ -29,5 +29,8 @@ Message.prototype.getHTMLText = function(){
 }
 
 Message.prototype.getDateText = function(){
-    
+	var i = this.getDate().getMonth();
+	var months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+
+	return	"Created "+this.getDate().getDate()+" " +months[i]+" "+this.getDate().getFullYear()+" at "+this.getDate().toLocaleTimeString();
 }
