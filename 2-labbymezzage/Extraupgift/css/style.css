@@ -1,0 +1,82 @@
+body{
+    background-color: #AEBC80;
+       font-family: serif;
+       color: #8A8A5C;
+}
+
+h1{
+   color: #fff;
+   margin-left: 180px;
+   font-size: 40px;
+    text-shadow: -1px 0 #8A8A5C, 0 1px #8A8A5C, 1px 0 #8A8A5C, 0 -1px #8A8A5C;
+}
+
+#content{
+    width: 80%;
+    height: 400px;
+    margin: 0 auto;
+    border: 1px solid #8A8A5C;
+    background-color: #D6DEC0;
+    
+}
+
+#board1{
+    float: left;
+}
+
+#board2{
+    float: right;
+}
+
+#text{
+    background-color: #fff;
+}
+
+#text p{
+    font-size: 15px;
+    margin: 0 30px;
+    padding-top: 10px;
+}
+
+#viewmessages{
+    background-color: #D6DEC0;
+    padding-left: 10px;
+}
+
+textarea{
+    margin: 10px 5px 0 5px;
+    width: 300px;
+    height: 150px;
+}
+
+footer{
+    position: relative;
+    top: -330px;
+    width: 500px;
+    height: 30px;
+    margin: 0 auto;
+}
+
+footer p{
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+}
+
+.right{
+    float: right;
+    margin-right: 10px;
+}
+
+.button{
+    background-color: #fff;
+    float: right;
+}
+
+.count{
+    float: right;
+    background-color: #000;
+}
+span{
+    font-size: 10px;
+}
