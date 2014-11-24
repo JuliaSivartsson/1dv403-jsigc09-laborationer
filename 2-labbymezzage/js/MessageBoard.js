@@ -107,9 +107,9 @@ var MessageBoard = {
     //Meddelandetext
         messageText = document.createElement("p");
         messageText.innerHTML = MessageBoard.messages[messageID].getHTMLText();
-        var ourTime = new Date();
         
     //Tidsstämpel
+        var ourTime = new Date();
         spanTime = document.createElement("span");
         time = ourTime.toLocaleTimeString();
         spanTime.innerHTML = time;

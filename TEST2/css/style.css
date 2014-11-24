@@ -1,0 +1,14 @@
+body{
+    background-color: #33CC33;
+}
+.board{
+    padding: 10px;
+    float: left;
+    margin-right: 30px;
+    color: #fff;
+    border: 5px solid #990000;
+    border-bottom: 15px solid #990000;
+    background-color: #003300;
+    height: 200px;
+    width: 400px;
+}
