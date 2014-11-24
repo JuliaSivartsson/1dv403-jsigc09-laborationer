@@ -12,7 +12,7 @@ h1{
 }
 
 #content{
-    width: 80%;
+    width: 50%;
     height: 400px;
     margin: 0 auto;
     border: 1px solid #8A8A5C;
@@ -26,6 +26,7 @@ h1{
 
 #board2{
     float: right;
+    margin-right: 20px;
 }
 
 #text{
@@ -43,10 +44,14 @@ h1{
     padding-left: 10px;
 }
 
-textarea{
+.textareaContent{
     margin: 10px 5px 0 5px;
     width: 300px;
     height: 150px;
+}
+
+.textareaShow{
+    background-color: #000;
 }
 
 footer{
@@ -70,7 +75,6 @@ footer p{
 
 .button{
     background-color: #fff;
-    float: right;
 }
 
 .count{

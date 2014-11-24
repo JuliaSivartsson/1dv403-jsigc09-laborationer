@@ -11,7 +11,6 @@ function MessageBoard(containerId){
     
     //Run methods on creation
     this.drawBoards();
-    this.renderMessages();
 }
 
  
@@ -21,23 +20,21 @@ MessageBoard.prototype.createMessage = function(){
         var text;
         var newMessage;
         
-        text = this.rootId.getElementsByClassName("textarea")[0];
+        text = this.rootId.getElementsByClassName("textareaContent")[0];
         console.log(text.value);
+        console.log(this.rootId);
         
         //Är fältet tomt så händer ingenting
-        if(text !== ""){
+        if(text.value !== ""){
             newMessage = new Message(text, new Date());
+            this.messages.push(newMessage);
         }
         
-        
-        
-        this.messages.push(newMessage);
-        this.renderMessages();
-        
         text = "";
+        this.renderMessages();
 };
     
-MessageBoard.prototype.renderMessage = function(messageID){
+MessageBoard.prototype.renderMessage = function(messageID, count){
         //Skriv ut ETT meddelande
         
         var that = this;
@@ -110,9 +107,10 @@ MessageBoard.prototype.renderMessage = function(messageID){
     
 MessageBoard.prototype.renderMessages = function(){
         //Skriv ut ALLA meddelanden
-        var that = this;
         
-        var messageShow = document.getElementsByClassName("textarea")[0];
+        var that = this;
+        console.log("hej");
+        var messageShow = document.getElementsByClassName("textareaContent")[0];
         var messageCount = document.getElementsByClassName("count")[0];
         var count = 0;
         //Rensar från tidigare utskrifter
@@ -120,7 +118,7 @@ MessageBoard.prototype.renderMessages = function(){
         
         var messageText = "";
         this.messages.forEach( function(message){
-            messageCount.appendChild(that.renderMessage(message,count));
+            messageShow.appendChild(that.renderMessage(message,count));
         });
         
         messageCount.innerHTML = this.count();
@@ -151,7 +149,7 @@ MessageBoard.prototype.drawBoards = function(){
         this.rootId.appendChild(mezzageCount);
         
         var mezzageTextarea = document.createElement("textarea");
-        mezzageTextarea.className = "textarea";
+        mezzageTextarea.className = "textareaContent";
         mezzageTextarea.onkeypress = function(e){
             if(e.keyCode == 13 && !e.shiftKey){
                 console.log("enter pressed");

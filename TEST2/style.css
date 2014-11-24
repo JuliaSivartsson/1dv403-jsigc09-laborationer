@@ -1,0 +1,7 @@
+.popupWindow{
+    border: 2px solid #000;
+    height: 50px;
+    width: 200px;
+    text-align: center;
+    background-color: #eee;
+}
