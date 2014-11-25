@@ -1,82 +1,79 @@
 "use strict";
+var columns = 4;
+var rows = 4;
 
 var Memory = {
     
     pictures: [],
+    random: [],
           
     init: function(){
-      // Starta applikationen
-        
-      var random = RandomGenerator.getPictureArray(4, 4);
-      Memory.pictures.push(random);
+      // Starta applikationen 
+      var output = "";
+      var random = [];
       
-      Memory.pictures.forEach(function(number){
-                console.log(number);
-      });
-      
-      var columns = 6;
-      Memory.drawBoard(columns);
+      Memory.random = RandomGenerator.getPictureArray(rows, columns);
+      console.log(Memory.random);
+    
+      Memory.drawBoard();
 
     },
     
-    drawBoard: function(columns){
+    drawBoard: function(){
       // Rita upp memory spelet
+
+      var tilesFlipped = 0;
+      var ul = document.createElement("ul");
+      var tbl;
+      var tblBody;
+      var tr;
+      var td;
+      var ul = document.getElementById("memoryboard").appendChild(ul);
       
-      var that = this;
-      
-      var body = document.getElementById("memoryboard");
-      
-      var tbl = document.createElement("table");
-      var tblBody = document.createElement("tbody");
+      tbl = document.createElement("table");
+      tblBody = document.createElement("tbody");
       var id = 0;
-        for(var j = 0; j <= 2; j++){
+      
+        for(var row = 0; row <= 2; row++){
           
-            var row = document.createElement("tr");
+            tr = document.createElement("tr");
+            ul.appendChild(tr);
             
-            for(var i = 0; i < columns; i++){
+            for(var col = 0; col < columns; col++){
               
-                id++;
-                var cell = document.createElement("td");
+                td = document.createElement("td");
+                tr.appendChild(td);
+                
                 var imgCell = document.createElement("img");
                 imgCell.setAttribute("src", "pics/0.png");
-                imgCell.setAttribute("alt", i);
                 
                 var aCell = document.createElement("a");
                 aCell.setAttribute("href", "#");
-                aCell.setAttribute("id", id);
                 aCell.appendChild(imgCell);
-
-                aCell.onclick = function(){
-                    Memory.turnImage(imgCell);
-                };
-                cell.appendChild(aCell);
-                row.appendChild(cell);
-            }
-            
-            tblBody.appendChild(row);
-        }
- 
+                td.appendChild(aCell);
                 
-              Memory.pictures.forEach(function(number){
-                number.id = aCell[i];
-                console.log(number.id);
-              });
-
-        tbl.appendChild(tblBody);
-        body.appendChild(tbl);
+                Memory.turnImage(tilesFlipped, aCell);
+                tilesFlipped++;
+            }
+        }
     },
     
-    createCard: function(i, j){
-      
-    },
-    
-    turnImage: function(id){
+    turnImage: function(count, aTagg){
       // Vänd brickan
       
-          var img = Memory.drawBoard.aCell;
-          console.log(id);
-          
-
+      aTagg.addEventListener("click", function(){
+      
+          if(this.getElementsByTagName("img")[0].getAttribute("src") !== "pics/0.png"){
+            return false;
+          }
+            
+      Memory.pictures.push(aTagg);
+      
+        if(Memory.pictures.length <= 2){
+          this.getElementsByTagName("img")[0].setAttribute("src", "pics/" + Memory.random[count] + ".png");
+        }
+            
+      });
     }
     
 }

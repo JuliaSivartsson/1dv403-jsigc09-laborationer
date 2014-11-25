@@ -129,9 +129,13 @@ var MessageBoard = {
         //Skriv ut ALLA meddelanden
         
         document.getElementById("viewmessages").innerHTML = "";
-        for(var i = 0; i <= MessageBoard.messages.length; i++){
+        MessageBoard.messages.forEach(function(element, index){
+            MessageBoard.renderMessage(index);
+        });
+        /*for(var i = 0; i <= MessageBoard.messages.length; i++){
+            console.log(i);
             MessageBoard.renderMessage(i);
-        };
+        };*/
         
         //Rensar från tidigare utskrifter
         document.form.messagearea.value = "";

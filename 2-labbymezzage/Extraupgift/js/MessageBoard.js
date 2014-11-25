@@ -39,7 +39,7 @@ MessageBoard.prototype.renderMessage = function(messageID, count){
         
         var that = this;
         
-        var mezzageShow = document.createElement("div");
+        var mezzageShow = document.createElement("section");
         
         var viewmessages;
         var imgClock;
@@ -108,33 +108,34 @@ MessageBoard.prototype.renderMessage = function(messageID, count){
 MessageBoard.prototype.renderMessages = function(){
         //Skriv ut ALLA meddelanden
         
-        var that = this;
-        console.log("hej");
-        var messageShow = document.getElementsByClassName("textareaContent")[0];
-        var messageCount = document.getElementsByClassName("count")[0];
+        
+        var messageShow = this.rootId.getElementsByClassName("textareaContent")[0];
+        var messageCount = this.rootId.getElementsByClassName("count")[0];
+        
         var count = 0;
         //Rensar från tidigare utskrifter
         messageShow.innerHTML = "";
-        
-        var messageText = "";
+        var that = this;
         this.messages.forEach( function(message){
             messageShow.appendChild(that.renderMessage(message,count));
+            count++;
         });
-        
+        console.log(this.messages);
         messageCount.innerHTML = this.count();
 };
     
-MessageBoard.prototype.deleteMessage = function(){
+/*MessageBoard.prototype.deleteMessage = function(){
         //Radera meddelande
         MessageBoard.messages.splice(messageID, 1);
         MessageBoard.count();
         MessageBoard.renderMessages();
         //console.log("Deleted message " + messageID.innerHTML);
-};
+};*/
     
 MessageBoard.prototype.count = function(){
         //Räknar antal meddelande
         return this.messages.length + " messages";
+        console.log("hej");
 };
 
 
