@@ -15,7 +15,6 @@ function Popup(text){
     
     div.appendChild(button);
     
-    
 }
 
 window.onload = function(){

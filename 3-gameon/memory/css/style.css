@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'Urban';
+  src: url('font/urban.otf');
+}
+body{
+    background-color: #D0DAB2;
+}
+
+#content{
+    width: 500px;
+    height: 200px;
+    margin: 0 auto;
+        border: 2px solid #A1B466;
+        background-color: #fff;
+        -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow:    7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        box-shadow:         7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
+#memoryboard{
+
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+
+}
+
+h1{
+    color: #536E00;
+    text-align: center;
+    font-family: urban;
+    font-size: 50px;
+}
+
+footer{
+    text-align:center;
+    color:  #536E00;
+    font-style: italic;
+    font-size: 13px;
+}
+
+.popupWindow{
+    color: #fff;
+    width: 400px;
+    height: 30px;
+    background-color: #7F8D5A;
+    text-align: center;
+    margin-left: -100px;
+}

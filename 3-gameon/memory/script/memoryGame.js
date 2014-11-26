@@ -1,7 +1,9 @@
 "use strict";
 var columns = 4;
 var rows = 4;
-
+var pairCount = 0;
+var tryCount = 0;
+      
 var Memory = {
     
     pictures: [],
@@ -13,7 +15,7 @@ var Memory = {
       var random = [];
       
       Memory.random = RandomGenerator.getPictureArray(rows, columns);
-      console.log(Memory.random);
+      
     
       Memory.drawBoard();
 
@@ -28,13 +30,13 @@ var Memory = {
       var tblBody;
       var tr;
       var td;
-      var ul = document.getElementById("memoryboard").appendChild(ul);
-      
+      document.getElementById("memoryboard").appendChild(ul);
+
       tbl = document.createElement("table");
       tblBody = document.createElement("tbody");
       var id = 0;
       
-        for(var row = 0; row <= 2; row++){
+        for(var row = 0; row < rows; row++){
           
             tr = document.createElement("tr");
             ul.appendChild(tr);
@@ -56,6 +58,8 @@ var Memory = {
                 tilesFlipped++;
             }
         }
+        
+
     },
     
     turnImage: function(count, aTagg){
@@ -68,12 +72,63 @@ var Memory = {
           }
             
       Memory.pictures.push(aTagg);
-      
         if(Memory.pictures.length <= 2){
+              
           this.getElementsByTagName("img")[0].setAttribute("src", "pics/" + Memory.random[count] + ".png");
+        }
+        
+        if(Memory.pictures.length === 2){
+          setTimeout(function() {
+            Memory.checkImages(Memory.pictures);
+          }, 1000);
         }
             
       });
+    },
+    
+    checkImages: function(array){
+      // Om bilderna är likadana så stannar de uppvända
+      
+      var element1 = array[0].getElementsByTagName("img")[0].getAttribute("src");
+      var element2 = array[1].getElementsByTagName("img")[0].getAttribute("src");
+      tryCount++;
+        
+      if(element1 === element2){
+        pairCount++;
+                
+        if(pairCount === Memory.random.length/2){
+          Memory.popup("Awesome, you won! It took you "+tryCount+" attempts.");
+        }
+        
+        Memory.pictures = [];
+      }
+      else{
+        array[0].getElementsByTagName("img")[0].setAttribute("src", "pics/0.png");
+        array[1].getElementsByTagName("img")[0].setAttribute("src", "pics/0.png");
+        
+        Memory.pictures = [];
+        
+      }
+
+    },
+    
+    popup: function(text){
+
+        var parentDiv = document.getElementById("memoryboard");
+        var div = document.createElement("div");
+        div.className = "popupWindow";
+        parentDiv.appendChild(div);
+        
+        div.innerHTML = text;
+        
+        var button = document.createElement("input");
+        button.type = "button";
+        button.value = "Start over";
+        button.onclick = function(){
+            Memory.drawBoard();
+        }
+    
+      div.appendChild(button);
     }
     
 }
