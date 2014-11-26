@@ -10,12 +10,12 @@ var Memory = {
     random: [],
           
     init: function(){
-      // Starta applikationen 
+      // Starta applikationen
+      
       var output = "";
       var random = [];
       
       Memory.random = RandomGenerator.getPictureArray(rows, columns);
-      
     
       Memory.drawBoard();
 
@@ -34,7 +34,6 @@ var Memory = {
 
       tbl = document.createElement("table");
       tblBody = document.createElement("tbody");
-      var id = 0;
       
         for(var row = 0; row < rows; row++){
           
@@ -63,15 +62,17 @@ var Memory = {
     },
     
     turnImage: function(count, aTagg){
-      // Vänd brickan
+      // Vänd brickan och skicka vidare till checkImages
       
       aTagg.addEventListener("click", function(){
       
+          // Om bilden redan är vänd kan man inte trycka på den
           if(this.getElementsByTagName("img")[0].getAttribute("src") !== "pics/0.png"){
             return false;
           }
-            
+      
       Memory.pictures.push(aTagg);
+        
         if(Memory.pictures.length <= 2){
               
           this.getElementsByTagName("img")[0].setAttribute("src", "pics/" + Memory.random[count] + ".png");
@@ -80,7 +81,7 @@ var Memory = {
         if(Memory.pictures.length === 2){
           setTimeout(function() {
             Memory.checkImages(Memory.pictures);
-          }, 1000);
+          }, 800);
         }
             
       });
@@ -113,7 +114,8 @@ var Memory = {
     },
     
     popup: function(text){
-
+      // Popu meddelande
+      
         var parentDiv = document.getElementById("memoryboard");
         var div = document.createElement("div");
         div.className = "popupWindow";
