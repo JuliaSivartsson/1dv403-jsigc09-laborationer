@@ -12,12 +12,17 @@ h1{
 }
 
 #content{
-    width: 50%;
+    width: 70%;
     height: 400px;
     margin: 0 auto;
     border: 1px solid #8A8A5C;
     background-color: #D6DEC0;
     
+}
+
+.viewmessages{
+    background-color: #D6DEC0;
+    padding-left: 10px;
 }
 
 #board1{
@@ -38,21 +43,12 @@ h1{
     margin: 0 30px;
     padding-top: 10px;
 }
-
-#viewmessages{
-    background-color: #D6DEC0;
-    padding-left: 10px;
-}
-
 .textareaContent{
     margin: 10px 5px 0 5px;
     width: 300px;
     height: 150px;
 }
 
-.textareaShow{
-    background-color: #000;
-}
 
 footer{
     position: relative;
@@ -74,12 +70,12 @@ footer p{
 }
 
 .button{
-    background-color: #fff;
+    background-color: #AEBC80;
+    color: #fff;
 }
 
 .count{
-    background-color: #000;
-}
-span{
-    font-size: 10px;
+    border-bottom: 1px solid #fff;
+    width: 100px;
+    margin-left: 10px;
 }

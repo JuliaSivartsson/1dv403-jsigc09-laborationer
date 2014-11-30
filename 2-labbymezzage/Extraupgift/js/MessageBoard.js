@@ -1,9 +1,9 @@
 "use strict";
 
-window.onload = function(){
-    new MessageBoard("board1");
-    new MessageBoard("board2");
-    };
+window.onload = function() {
+        new MessageBoard("board1");
+        new MessageBoard("board2");
+};
 
 function MessageBoard(containerId){
     this.rootId = document.getElementById(containerId);
@@ -11,6 +11,8 @@ function MessageBoard(containerId){
     
     //Run methods on creation
     this.drawBoards();
+    this.renderMessages();
+    
 }
 
  
@@ -22,26 +24,22 @@ MessageBoard.prototype.createMessage = function(){
         
         text = this.rootId.getElementsByClassName("textareaContent")[0];
         console.log(text.value);
-        console.log(this.rootId);
-        
+
         //Är fältet tomt så händer ingenting
-        if(text.value !== ""){
-            newMessage = new Message(text, new Date());
-            this.messages.push(newMessage);
+        if(text.value === ""){
+            return false;
         }
         
-        text = "";
+        var newMessage = new Message(text.value, new Date());
+        this.messages.push(newMessage);
         this.renderMessages();
 };
     
-MessageBoard.prototype.renderMessage = function(messageID, count){
+MessageBoard.prototype.renderMessage = function(message, count){
         //Skriv ut ETT meddelande
-        
         var that = this;
-        
         var mezzageShow = document.createElement("section");
         
-        var viewmessages;
         var imgClock;
         var aClock;
         var imgRemove;
@@ -62,7 +60,7 @@ MessageBoard.prototype.renderMessage = function(messageID, count){
         aClock.appendChild(imgClock);
         
         aClock.onclick = function(){
-            alert(MessageBoard.messages[messageID].getDateText());
+            alert(message.getDateText());
         };
         
     //Ta bort knapp
@@ -77,7 +75,7 @@ MessageBoard.prototype.renderMessage = function(messageID, count){
         
         aRemove.onclick = function(){
             if(confirm("Are you sure you want to delete this message?")){
-                MessageBoard.deleteMessage(messageID);
+                that.deleteMessage(count);
             }
             else{
                 
@@ -86,7 +84,7 @@ MessageBoard.prototype.renderMessage = function(messageID, count){
         
     //Meddelandetext
         messageText = document.createElement("p");
-        messageText.innerHTML = that.messages[messageID].getHTMLText();
+        messageText.innerHTML = message.getHTMLText();
         var ourTime = new Date();
         
     //Tidsstämpel
@@ -103,47 +101,45 @@ MessageBoard.prototype.renderMessage = function(messageID, count){
         mezzageShow.appendChild(spanTime);
         mezzageShow.appendChild(hr);
         
+        return mezzageShow;
+        
 };
     
 MessageBoard.prototype.renderMessages = function(){
         //Skriv ut ALLA meddelanden
         
-        
-        var messageShow = this.rootId.getElementsByClassName("textareaContent")[0];
+        var messageArea = this.rootId.getElementsByClassName("viewmessages")[0];
         var messageCount = this.rootId.getElementsByClassName("count")[0];
         
+        messageArea.innerHTML = "";
         var count = 0;
+        
         //Rensar från tidigare utskrifter
-        messageShow.innerHTML = "";
+        var messageContent = '';
         var that = this;
         this.messages.forEach( function(message){
-            messageShow.appendChild(that.renderMessage(message,count));
+            messageArea.appendChild(that.renderMessage(message, count));
             count++;
         });
-        console.log(this.messages);
+        
+        
         messageCount.innerHTML = this.count();
 };
     
-/*MessageBoard.prototype.deleteMessage = function(){
+MessageBoard.prototype.deleteMessage = function(count){
         //Radera meddelande
-        MessageBoard.messages.splice(messageID, 1);
-        MessageBoard.count();
-        MessageBoard.renderMessages();
-        //console.log("Deleted message " + messageID.innerHTML);
-};*/
+        this.messages.splice(count, 1);
+        this.renderMessages();
+};
     
 MessageBoard.prototype.count = function(){
         //Räknar antal meddelande
         return this.messages.length + " messages";
-        console.log("hej");
 };
 
 
 MessageBoard.prototype.drawBoards = function(){
-            var that = this;
-        var mezzageMain = document.createElement("div");
-        mezzageMain.className = "text";
-        this.rootId.appendChild(mezzageMain);
+        var that = this;
         
         var mezzageCount = document.createElement("div");
         mezzageCount.className = "count";
@@ -153,26 +149,32 @@ MessageBoard.prototype.drawBoards = function(){
         mezzageTextarea.className = "textareaContent";
         mezzageTextarea.onkeypress = function(e){
             if(e.keyCode == 13 && !e.shiftKey){
-                console.log("enter pressed");
                 e.preventDefault();
                 that.createMessage();
             }
         };
         
         this.rootId.appendChild(mezzageTextarea);
-
-        that.count();
-                        
+        
         //Referens till submit-knappen
         var mezzageButton = document.createElement("button");
         mezzageButton.className = "button";
-        var buttonText = document.createTextNode("Skriv");
+        var buttonText = document.createTextNode("Send");
         mezzageButton.appendChild(buttonText);
         
         this.rootId.appendChild(mezzageButton);
+
+        var mezzageMain = document.createElement("div");
+        mezzageMain.className = "viewmessages";
+        this.rootId.appendChild(mezzageMain);
+        
+        that.count();
+                        
+
         
         mezzageButton.onclick = function(e){
             that.createMessage();
+            that.rootId.getElementsByClassName("textareaContent")[0].focus();
         };
         
 };
