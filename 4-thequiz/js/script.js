@@ -22,19 +22,35 @@ window.onload = function (){
         
     };
 
+
       xhr.open("GET", "http://vhost3.lnu.se:20080/question/1", true);
       xhr.send(null);
-    
-    document.getElementById("answerbutton").addEventListener("click", function() {
-        var answer = document.getElementById("svar");
-        console.log(answer.value);
+      
+});
+document.getElementById("answerbutton").addEventListener("click", function() {
+    var xhr1 = new XMLHttpRequest();
+    xhr1.onreadystatechange = function (){
         
-        xhr.open('POST', 'http://vhost3.lnu.se:20080/answer/1', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(answer.value));
-    });
-    
+        //Indikerar att vi har fått ett svar
+        if(xhr1.readyState === 4){
+                var answer = JSON.parse(xhr1.responseText);
+                console.log(answer.message);
 
-  });
+            if(answer.message == "Correct answer!"){
+                console.log("Rätt svar!");
+            }
+            else{
+                console.log("Fel!");
+            }
+        }
+    };
+    var answer = document.getElementById("svar");
+    var sendAnswer = JSON.stringify({answer: answer.value});
+    
+    xhr1.open("POST", "http://vhost3.lnu.se:20080/answer/1", true);
+    xhr1.setRequestHeader('Content-Type', 'application/json');
+    xhr1.send(sendAnswer);
+});
+
   
 };
