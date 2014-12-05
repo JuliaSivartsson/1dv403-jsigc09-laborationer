@@ -6,22 +6,16 @@ window.onload = function(){
 
 function Quest(){
     this.nextURL;
-    this.createHTML();
     this.init();
 }
 
-Quest.prototype.createHTML = function (){
-    var that = this;
-    
-    var div = document.getElementById("content");
-
-};
-
 Quest.prototype.init = function (){
+    document.getElementById("svar").focus();
     this.getQuestion("http://vhost3.lnu.se:20080/question/1");
 };
     
 Quest.prototype.getQuestion = function (url){
+    // Här hämtar vi fråga från servern samt skickar nextURL till sendQuestion()
     console.log(url);
     var that = this;
     
@@ -37,11 +31,19 @@ Quest.prototype.getQuestion = function (url){
                 console.log(question.id);
                 console.log(question.message);
                 
+                var answer = document.getElementById("svar");
                 var button = document.getElementById("answerbutton");
+                answer.onkeypress = function(e){
+                    if(e.keyCode == 13 && answer.value !== ""){
+                    e.preventDefault();
+                    that.sendQuestion(answer.value, question.nextURL);  
+                    }
+                };
                 button.onclick = function(){
-                    console.log(question.nextURL);
-                    var answer = document.getElementById("svar");
-                  that.sendQuestion(answer.value, question.nextURL);  
+                    if(answer.value === ""){
+                        return false;
+                    }
+                       that.sendQuestion(answer.value, question.nextURL);    
                 };
             }
             else{
@@ -55,6 +57,7 @@ Quest.prototype.getQuestion = function (url){
 };
     
 Quest.prototype.sendQuestion = function (answerInput, url){
+    // Här skickar vi svaret till servern och skickar tillbaka ny fråga till getQuestion()
     var that = this;
 
         var xhr1 = new XMLHttpRequest();
@@ -77,7 +80,6 @@ Quest.prototype.sendQuestion = function (answerInput, url){
             }
         };
         
-        //var url = answer.nextURL;
         var sendAnswer = JSON.stringify({answer: answerInput});
         console.log(this.nextURL);
         xhr1.open("POST", url, true);
@@ -86,7 +88,7 @@ Quest.prototype.sendQuestion = function (answerInput, url){
 };
 
 Quest.prototype.popup = function(text){
-      // Popu meddelande
+      // Popup meddelande
       
         var parentDiv = document.getElementById("content");
         var div = document.createElement("div");
