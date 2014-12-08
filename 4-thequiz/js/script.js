@@ -6,9 +6,25 @@ window.onload = function(){
 
 function Quest(){
     this.nextURL;
+    this.contentDiv = document.getElementById("content");
     this.questionArray;
+    this.createHTML();
     this.init();
+
 }
+
+Quest.prototype.createHTML = function(){
+        var div = document.createElement("div");
+        div.id = "question";
+        div.className = "popupWindow";
+        this.contentDiv.appendChild(div);
+        
+        var wrongDiv = document.createElement("div");
+        wrongDiv.id = "wrongAnswer";
+        wrongDiv.className ="wrongAnswer";
+        
+        this.contentDiv.appendChild(wrongDiv);
+};
 
 Quest.prototype.init = function (){
     var count = 1;
@@ -19,7 +35,8 @@ Quest.prototype.init = function (){
 
 Quest.prototype.getScore = function(){
     
-    var div = document.getElementById("gameFinished");
+    var div = document.createElement("div");
+    this.contentDiv.appendChild(div);
     div.className = "scoreDiv";
     
     var awesomeDiv = document.createElement("div");
@@ -61,7 +78,7 @@ Quest.prototype.getQuestion = function (url, count){
             if(xhr.status == 200){
 
                 var div = document.getElementById("question");
-        
+
                 div.innerHTML = '';
                 
                 var question = JSON.parse(xhr.responseText);
@@ -103,26 +120,28 @@ Quest.prototype.sendQuestion = function (answerInput, url, questionUrl, count){
 
             //Indikerar att vi har fått ett svar
             if(xhr1.readyState === 4){
-            
+
             var answer = JSON.parse(xhr1.responseText);
     
                 if(answer.message == "Correct answer!"){
-                    that.saveScore(url, count);
-                    count = 1;
                     var div = document.getElementById("wrongAnswer");
                     div.innerHTML = '';
-
+                    
+                    that.saveScore(url, count);
+                    count = 1;
+                    
                     if(answer.nextURL !== undefined){
                     that.getQuestion(answer.nextURL, count);
                     }
                     else{
+                        
                         that.popup("Grattis! Du har klarat alla frågor!");
                         that.getScore();
                     }
                 }
                 else if(answer.message === "Wrong answer! :("){
                     count++;
-
+                    
                     that.popupMessage(answer.message +" Try again!");
                     that.getQuestion(questionUrl, count);
                 }
@@ -148,7 +167,6 @@ Quest.prototype.popup = function(text){
       // Popup meddelande
       
         var div = document.getElementById("question");
-        div.className = "popupWindow";
         
         div.innerHTML = text;
 };
@@ -157,7 +175,6 @@ Quest.prototype.popupMessage = function(text){
       // Popup meddelande
       
         var div = document.getElementById("wrongAnswer");
-        div.className = "wrongAnswer";
-        
         div.innerHTML = text;
+        
 };
