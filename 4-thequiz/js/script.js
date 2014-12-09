@@ -69,23 +69,21 @@ Quest.prototype.getScore = function(){
 Quest.prototype.getQuestion = function (url, count){
     // Här hämtar vi fråga från servern samt skickar nextURL till sendQuestion()
     var that = this;
-        var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
       
-        xhr.onreadystatechange = function (){
+    xhr.onreadystatechange = function (){
         
         //Indikerar att vi har fått ett svar
         if(xhr.readyState === 4){
             if(xhr.status == 200){
-
+    
                 var div = document.getElementById("question");
-
                 div.innerHTML = '';
-                
+                    
                 var question = JSON.parse(xhr.responseText);
                 that.popup("Fråga: " + question.question);
                 console.log(question.id);
-
-                //that.addQuestion(question.question);
+    
                 var answer = document.getElementById("svar");
                 var button = document.getElementById("answerbutton");
                 answer.onkeypress = function(e){
@@ -98,8 +96,8 @@ Quest.prototype.getQuestion = function (url, count){
                     if(answer.value === ""){
                         return false;
                     }
-
-                       that.sendQuestion(answer.value, question.nextURL, url, count);    
+    
+                   that.sendQuestion(answer.value, question.nextURL, url, count);    
                 };
             }
             else{
@@ -108,8 +106,8 @@ Quest.prototype.getQuestion = function (url, count){
         }
         
     };
-      xhr.open("GET", url, true);
-      xhr.send(null);
+    xhr.open("GET", url, true);
+    xhr.send(null);
 };
     
 Quest.prototype.sendQuestion = function (answerInput, url, questionUrl, count){
@@ -120,30 +118,31 @@ Quest.prototype.sendQuestion = function (answerInput, url, questionUrl, count){
 
             //Indikerar att vi har fått ett svar
             if(xhr1.readyState === 4){
-
-            var answer = JSON.parse(xhr1.responseText);
+                if(xhr1.status == 200){
+                    var answer = JSON.parse(xhr1.responseText);
     
-                if(answer.message == "Correct answer!"){
-                    var div = document.getElementById("wrongAnswer");
-                    div.innerHTML = '';
-                    
-                    that.saveScore(url, count);
-                    count = 1;
-                    
-                    if(answer.nextURL !== undefined){
-                    that.getQuestion(answer.nextURL, count);
-                    }
-                    else{
+                    if(answer.message == "Correct answer!"){
+                        var div = document.getElementById("wrongAnswer");
+                        div.innerHTML = '';
                         
-                        that.popup("Grattis! Du har klarat alla frågor!");
-                        that.getScore();
+                        that.saveScore(url, count);
+                        count = 1;
+                        
+                        if(answer.nextURL !== undefined){
+                        that.getQuestion(answer.nextURL, count);
+                        }
+                        else{
+                            
+                            that.popup("Grattis! Du har klarat alla frågor!");
+                            that.getScore();
+                        }
                     }
-                }
-                else if(answer.message === "Wrong answer! :("){
-                    count++;
-                    
-                    that.popupMessage(answer.message +" Try again!");
-                    that.getQuestion(questionUrl, count);
+                    else if(answer.message === "Wrong answer! :("){
+                        count++;
+                        
+                        that.popupMessage(answer.message +" Try again!");
+                        that.getQuestion(questionUrl, count);
+                    }
                 }
             }
         };
@@ -165,16 +164,12 @@ Quest.prototype.saveScore = function(url, score){
 
 Quest.prototype.popup = function(text){
       // Popup meddelande
-      
-        var div = document.getElementById("question");
-        
-        div.innerHTML = text;
+    var div = document.getElementById("question");
+    div.innerHTML = text;
 };
 
 Quest.prototype.popupMessage = function(text){
       // Popup meddelande
-      
         var div = document.getElementById("wrongAnswer");
         div.innerHTML = text;
-        
 };
