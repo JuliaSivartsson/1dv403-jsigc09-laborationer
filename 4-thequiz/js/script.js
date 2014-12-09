@@ -10,7 +10,6 @@ function Quest(){
     this.questionArray;
     this.createHTML();
     this.init();
-
 }
 
 Quest.prototype.createHTML = function(){
@@ -27,10 +26,10 @@ Quest.prototype.createHTML = function(){
 };
 
 Quest.prototype.init = function (){
-    var count = 1;
+    var numberOfGuesses = 1;
     this.questionArray = [];
     document.getElementById("svar").focus();
-    this.getQuestion("http://vhost3.lnu.se:20080/question/1", count);
+    this.getQuestion("http://vhost3.lnu.se:20080/question/1", numberOfGuesses);
 };
 
 Quest.prototype.getScore = function(){
@@ -62,42 +61,42 @@ Quest.prototype.getScore = function(){
     button.onclick = function(){
       return false;
     };
-    
-
 };
 
-Quest.prototype.getQuestion = function (url, count){
+Quest.prototype.getQuestion = function (questionUrl, numberOfGuesses){
     // Här hämtar vi fråga från servern samt skickar nextURL till sendQuestion()
     var that = this;
     var xhr = new XMLHttpRequest();
-      
+  
     xhr.onreadystatechange = function (){
         
         //Indikerar att vi har fått ett svar
         if(xhr.readyState === 4){
             if(xhr.status == 200){
-    
+
                 var div = document.getElementById("question");
+
                 div.innerHTML = '';
-                    
+                
                 var question = JSON.parse(xhr.responseText);
                 that.popup("Fråga: " + question.question);
                 console.log(question.id);
-    
+
+                //that.addQuestion(question.question);
                 var answer = document.getElementById("svar");
                 var button = document.getElementById("answerbutton");
                 answer.onkeypress = function(e){
                     if(e.keyCode == 13 && answer.value !== ""){
                     e.preventDefault();
-                    that.sendQuestion(answer.value, question.nextURL, url, count);  
+                    that.sendQuestion(answer.value, question.nextURL, questionUrl, numberOfGuesses);  
                     }
                 };
                 button.onclick = function(){
                     if(answer.value === ""){
                         return false;
                     }
-    
-                   that.sendQuestion(answer.value, question.nextURL, url, count);    
+
+                       that.sendQuestion(answer.value, question.nextURL, questionUrl, numberOfGuesses);    
                 };
             }
             else{
@@ -106,69 +105,66 @@ Quest.prototype.getQuestion = function (url, count){
         }
         
     };
-    xhr.open("GET", url, true);
+    xhr.open("GET", questionUrl, true);
     xhr.send(null);
 };
     
-Quest.prototype.sendQuestion = function (answerInput, url, questionUrl, count){
+Quest.prototype.sendQuestion = function (answerInput, AnswerUrl, previousUrl, numberOfGuesses){
     // Här skickar vi svaret till servern och skickar tillbaka ny fråga till getQuestion()
     var that = this;
-        var xhr1 = new XMLHttpRequest();
-        xhr1.onreadystatechange = function (){
+    var xhr1 = new XMLHttpRequest();
+    xhr1.onreadystatechange = function (){
 
-            //Indikerar att vi har fått ett svar
-            if(xhr1.readyState === 4){
-                if(xhr1.status == 200){
-                    var answer = JSON.parse(xhr1.responseText);
+        //Indikerar att vi har fått ett svar
+        if(xhr1.readyState === 4){
     
-                    if(answer.message == "Correct answer!"){
-                        var div = document.getElementById("wrongAnswer");
-                        div.innerHTML = '';
-                        
-                        that.saveScore(url, count);
-                        count = 1;
-                        
-                        if(answer.nextURL !== undefined){
-                        that.getQuestion(answer.nextURL, count);
-                        }
-                        else{
-                            
-                            that.popup("Grattis! Du har klarat alla frågor!");
-                            that.getScore();
-                        }
-                    }
-                    else if(answer.message === "Wrong answer! :("){
-                        count++;
-                        
-                        that.popupMessage(answer.message +" Try again!");
-                        that.getQuestion(questionUrl, count);
-                    }
+        var answer = JSON.parse(xhr1.responseText);
+
+            if(answer.message == "Correct answer!"){
+                var div = document.getElementById("wrongAnswer");
+                div.innerHTML = '';
+                
+                that.saveScore(AnswerUrl, numberOfGuesses);
+                numberOfGuesses = 1;
+                
+                if(answer.nextURL !== undefined){
+                that.getQuestion(answer.nextURL, numberOfGuesses);
+                }
+                else{
+                    
+                    that.popup("Grattis! Du har klarat alla frågor!");
+                    that.getScore();
                 }
             }
-        };
-        
-        var sendAnswer = JSON.stringify({answer: answerInput});
-        xhr1.open("POST", url, true);
-        xhr1.setRequestHeader('Content-Type', 'application/json');
-        xhr1.send(sendAnswer);
+            else if(answer.message === "Wrong answer! :("){
+                numberOfGuesses++;
+                
+                that.popupWrongAnswer(answer.message +" Try again!");
+                that.getQuestion(previousUrl, numberOfGuesses);
+            }
+        }
+    };
+    var sendAnswer = JSON.stringify({answer: answerInput});
+    xhr1.open("POST", AnswerUrl, true);
+    xhr1.setRequestHeader('Content-Type', 'application/json');
+    xhr1.send(sendAnswer);
 };
 
 
-Quest.prototype.saveScore = function(url, score){
+Quest.prototype.saveScore = function(AnswerUrl, numberOfGuesses){
     this.questionArray.push({
-       url: url,
-       score: score
+       url: AnswerUrl,
+       score: numberOfGuesses
     });
-    
 };
 
 Quest.prototype.popup = function(text){
       // Popup meddelande
-    var div = document.getElementById("question");
-    div.innerHTML = text;
+        var div = document.getElementById("question");
+        div.innerHTML = text;
 };
 
-Quest.prototype.popupMessage = function(text){
+Quest.prototype.popupWrongAnswer = function(text){
       // Popup meddelande
         var div = document.getElementById("wrongAnswer");
         div.innerHTML = text;
