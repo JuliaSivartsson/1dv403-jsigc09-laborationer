@@ -1,4 +1,4 @@
-"use strict";
+/*"use strict";
 window.onload = function(){
     new Desktop();
 };
@@ -27,7 +27,7 @@ Desktop.prototype.createHTML = function() {
     aicon.appendChild(icon);
 
     aicon.onclick = function(){
-        var image = new ImageViewer();
+        var image = new Window();
         
         
         if(!image){
@@ -43,4 +43,4 @@ Desktop.prototype.createHTML = function() {
 
 Desktop.prototype.init = function(){
     
-};
+};*/

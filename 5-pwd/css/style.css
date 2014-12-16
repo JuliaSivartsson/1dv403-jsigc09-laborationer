@@ -26,27 +26,42 @@
 
 .closeButton{
     float: right;
-    top: -25px;
     position: relative;
 }
 
 .closeText{
     float: left;
-    top: -35px;
-    position: relative;
-    margin-left: 5px;
+    position: absolute;
+    top: -10px;
     color: #ccc;
+    margin-left: 5px;
 }
 
 
 
 .windowDiv{
+    overflow: auto;
     background-color: rgba(204,204,204, 0.8);
     height: 300px;
-    width: 250px;
+    width: 350px;
     position:absolute;
     margin-left: 30px;
     margin-top: 30px;
-    border-top: 25px solid rgba(0,0,0, 0.3);
-    
+    text-align: left;
+}
+
+.appHeader{
+    height: 25px;
+    background-color: rgba(104,104,104, 0.8);
+    padding-bottom: 2px;
+}
+
+.imgContainer{
+    margin: 5px;
+    float: left;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.15);
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.2);
+    text-align: center;
 }
