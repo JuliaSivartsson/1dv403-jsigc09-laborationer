@@ -1,23 +1,34 @@
 "use strict";
 
-function ImageViewer() {
+/*ImageWindow.prototype = new Window();
+ImageWindow.prototype.constructor = ImageWindow;
+function ImageWindow(url, desktop, xPos, yPos) {
+    var image = document.createElement("img");
+    image.src = url;
+
+    this.WindowConstruct("Gallery", false, desktop, xPos, yPos);
+    this.app.appendChild(image);
+}*/
+
+
+function ImageViewer(desktop, xPos, yPos) {
+    this.win = new Window();
+    //this.WindowConstruct("Gallery", false, desktop, xPos, yPos);
+    //this.app.classList.add("Gallery");
+    console.log(this.app);
+    this.Url = "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/";
     this.imageArr = undefined;
     this.thumbHeight = 0;
     this.thumbWidth = 0;
-    this.init();
-    new Window("ImageViewer");
+    this.loadImages();
+    
+    this.OpenInNewWindow = function(url){
+        new ImageWindow(url, desktop, xPos+5, yPos+5);
+    };
 }
 
-ImageViewer.prototype.init = function() {
-    this.loadImages("http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/");
-};
-
-ImageViewer.prototype.loadImages = function(imagesUrl) {
+ImageViewer.prototype.loadImages = function() {
     var that = this;
-    var loadingDiv = document.getElementById("ImageViewer");
-    console.log(loadingDiv);
-
-    //loadingDiv.className = "";
     var xhr = new XMLHttpRequest();
   
     xhr.onreadystatechange = function (){
@@ -36,7 +47,6 @@ ImageViewer.prototype.loadImages = function(imagesUrl) {
                     }
                 }
                 
-                loadingDiv.className = "hidden";
                 that.renderImages();
 
             }
@@ -46,13 +56,12 @@ ImageViewer.prototype.loadImages = function(imagesUrl) {
         }
         
     };
-    xhr.open("GET", imagesUrl, true);
+    xhr.open("GET", this.Url, true);
     xhr.send(null);
 };
 
 ImageViewer.prototype.renderImages = function(){
   var that = this;
-  
   this.imageArr.forEach(function(currentImage){
      var imgContainer = document.createElement("a");
      imgContainer.href = "#";
@@ -62,14 +71,14 @@ ImageViewer.prototype.renderImages = function(){
      imgContainer.classList.add("imgContainer");
      imgContainer.onclick = function(e){
        e.preventDefault();
-        var background = document.getElementById("background");
-        background.style.backgroundImage="url("+currentImage.URL+")";
+        that.OpenInNewWindow(currentImage.URL);
      };
-     
      var image = document.createElement("img");
      image.src = currentImage.thumbURL;
      imgContainer.appendChild(image);
      var windowDiv = document.getElementById("ImageViewer");
-     windowDiv.appendChild(imgContainer);
+console.log(that.win);
+
+    windowDiv.appendChild(imgContainer);
   });
 };

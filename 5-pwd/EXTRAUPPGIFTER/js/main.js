@@ -1,5 +1,7 @@
 "use strict";
 
+
+
 window.onload = function(){
-  new Desktop("content");  
+  new Desktop("desktopApplication");  
 };

@@ -1,5 +1,4 @@
 "use strict";
-console.log("desktop");
 
 function Desktop(){
     this.createHTML();

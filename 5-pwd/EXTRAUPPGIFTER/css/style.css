@@ -18,6 +18,7 @@
     height: 640px;
 }
 
+
 .icon{
     background-image: url("img/icon.png");
     width: 64px;
@@ -37,13 +38,7 @@
     margin-left: 5px;
 }
 
-.hidden{
-    display: none;
-}
 
-.visible{
-    display: default;
-}
 
 .windowDiv{
     overflow: auto;
@@ -52,22 +47,24 @@
     width: 350px;
     position:absolute;
     margin-left: 30px;
-    margin-top: 40px;
+    margin-top: 50px;
     text-align: left;
+    overflow-x: hidden;
 }
 
-.appHeader{
-    height: 25px;
-    background-color: rgba(104,104,104, 0.8);
-    padding-bottom: 2px;
+.windowDiv .appHeader{
+    position: absolute;
+    background-color: rgba(104,104,104, 1);
+    width: 300px;
 }
 
-.appFooter{
-    height: 50px;
-    background-color: rgba(104,104,104, 0.8);
-    padding-bottom: 2px;
-    position: relative;
-    bottom: 0;
+.windowDiv .appFooter{
+    position: fixed;
+    background-color: rgba(104,104,104, 1);
+    top: 420px;
+    height: 20px;
+    margin: 0 auto;
+    width: 350px;
 }
 
 .imgContainer{
