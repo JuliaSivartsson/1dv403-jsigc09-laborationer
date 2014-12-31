@@ -16,18 +16,17 @@ Window.prototype.createHTML = function(){
     var header = document.createElement("header");
     header.classList.add("appHeader");
     
-    var footer = document.createElement("footer");
-    footer.classList.add("appFooter");
+    this.statusBar = document.createElement("footer");
+    this.statusBar.classList.add("appFooter");
     
-    var loadingDiv = document.createElement("div");
+    /*var loadingDiv = document.createElement("div");
     loadingDiv.id = "loadingDiv";
     loadingDiv.className = "hidden";
     
     var loadingPic = document.createElement("img");
     loadingPic.src = "img/load.gif";
     loadingDiv.appendChild(loadingPic);
-    
-    footer.appendChild(loadingDiv);
+    */
     
     var imgClose = document.createElement("img");
     imgClose.setAttribute("src", "img/remove.png");
@@ -50,7 +49,11 @@ Window.prototype.createHTML = function(){
     header.appendChild(textClose);
     header.appendChild(aClose);
     windowDiv.appendChild(header);
-    windowDiv.appendChild(footer);
+    windowDiv.appendChild(this.statusBar);
     background.appendChild(windowDiv);  
     console.log(windowDiv);
+};
+
+Window.prototype.setStatus = function(message){
+    this.statusBar.innerHTML = message;
 };

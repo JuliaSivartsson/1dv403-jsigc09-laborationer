@@ -14,8 +14,9 @@ ImageViewer.prototype.init = function() {
 
 ImageViewer.prototype.loadImages = function(imagesUrl) {
     var that = this;
-    var loadingDiv = document.getElementById("ImageViewer");
-    console.log(loadingDiv);
+    that.setStatus("Laddar bilder...");
+    //loadingDiv.classList.add("visible");
+
 
     //loadingDiv.className = "";
     var xhr = new XMLHttpRequest();
@@ -36,7 +37,7 @@ ImageViewer.prototype.loadImages = function(imagesUrl) {
                     }
                 }
                 
-                loadingDiv.className = "hidden";
+                //loadingDiv.className = "hidden";
                 that.renderImages();
 
             }

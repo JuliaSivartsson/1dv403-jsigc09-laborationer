@@ -1,0 +1,52 @@
+#content{
+    width: 1024px;
+    height: 640px;
+    margin: 0 auto;
+}
+
+#bottom{
+    border:1px solid #000;
+    top: 640px;
+    position: relative;
+    background-color: rgba(0,0,0, 0.3);
+}
+
+.background{
+    background-image: url("img/background.jpg");
+    background-color: #000;
+    width: 1024px;
+    height: 640px;
+}
+
+.icon{
+    background-image: url("img/icon.png");
+    width: 64px;
+    height: 64px;
+}
+
+.closeButton{
+    float: right;
+    top: -25px;
+    position: relative;
+}
+
+.closeText{
+    float: left;
+    top: -35px;
+    position: relative;
+    margin-left: 5px;
+    color: #ccc;
+}
+
+
+
+.windowDiv{
+    background-color: rgba(204,204,204, 0.8);
+    height: 300px;
+    width: 250px;
+    position:absolute;
+    margin-left: 30px;
+    margin-top: 30px;
+    border-top: 25px solid rgba(0,0,0, 0.3);
+    
+}
